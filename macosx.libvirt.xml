@@ -1,0 +1,114 @@
+<domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
+  <name>macosx</name>
+  <uuid>59569eb2-e3dd-4744-9b0f-268eae936c6c</uuid>
+  <memory unit='GiB'>8</memory>
+  <currentMemory unit='GiB'>8</currentMemory>
+  <vcpu>8</vcpu>
+  <os>
+    <type arch='x86_64' machine='pc-q35-2.3'>hvm</type>
+    <loader readonly='no'>/home/ben/src/qemu/OVMF.macosx.fd</loader>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+    <kvm>
+      <hidden state='on'/>
+    </kvm>
+  </features>
+  <cpu mode='custom' match='exact'>
+    <model fallback='allow'>core2duo</model>
+    <topology sockets='1' cores='8' threads='1'/>
+  </cpu>
+  <clock offset='utc'>
+    <timer name='rtc' tickpolicy='catchup'/>
+    <timer name='pit' tickpolicy='delay'/>
+    <timer name='hpet' present='no'/>
+  </clock>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <pm>
+    <suspend-to-mem enabled='no'/>
+    <suspend-to-disk enabled='no'/>
+  </pm>
+  <devices>
+    <emulator>/usr/bin/qemu-system-x86_64</emulator>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/ben/src/qemu/clover-usb-disk.dd'/>
+      <target dev='hdb' bus='sata'/>
+      <boot order='1'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+    </disk>
+    <disk type='file' device='disk'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/ben/src/qemu/clover.raw'/>
+      <target dev='hdd' bus='sata'/>
+      <boot order='2'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='3'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='native'/>
+      <source dev='/dev/sde'/>
+      <target dev='hda' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='native'/>
+      <source dev='/dev/sdg'/>
+      <target dev='hdc' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='2'/>
+    </disk>
+    <controller type='pci' index='0' model='pcie-root'/>
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+    <!--interface type='network'>
+      <mac address='01:02:03:04:05:06'/>
+      <source network='default'/>
+      <model type='e1000-82545em'/>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x05' function='0x0'/>
+    </interface-->
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x03' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x03' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x03' slot='0x00' function='0x1'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x04' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x08' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x08' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x09' slot='0x00' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x09' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='usb'>
+      <source>
+        <vendor id='0x0a5c'/>
+        <product id='0x21e8'/>
+      </source>
+    </hostdev>
+  </devices>
+  <!--qemu:commandline>
+    <qemu:arg value=''/>
+  </qemu:commandline-->
+</domain>
