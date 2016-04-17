@@ -91,16 +91,19 @@
       </source>
       <address type='pci' domain='0x0000' bus='0x02' slot='0x09' function='0x0'/>
     </hostdev>
-    <sound model='ac97'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x02' function='0x0'/>
-    </sound>
-    <memballoon model='virtio'>
-      <address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/>
-    </memballoon>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x05' function='0x0'/>
+    </hostdev>
+    <hostdev mode='subsystem' type='pci' managed='yes'>
+      <driver name='vfio'/>
+      <source>
+        <address domain='0x0000' bus='0x00' slot='0x1b' function='0x0'/>
+      </source>
+      <address type='pci' domain='0x0000' bus='0x02' slot='0x06' function='0x0'/>
+    </hostdev>
   </devices>
-  <qemu:commandline>
-    <qemu:env name='QEMU_PA_SAMPLES' value='1024'/>
-    <qemu:env name='QEMU_AUDIO_DRV' value='pa'/>
-    <qemu:env name='QEMU_PA_SERVER' value='/run/user/1000/pulse/native'/>
-  </qemu:commandline>
 </domain>

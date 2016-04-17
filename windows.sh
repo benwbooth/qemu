@@ -36,6 +36,8 @@ exec qemu-system-x86_64 \
 \
 -device vfio-pci,host=01:00.0,id=hostdev0,bus=pcie.0,multifunction=on \
 -device vfio-pci,host=01:00.1,bus=pcie.0 \
+-device vfio-pci,host=00:03.0,bus=pcie.0 \
+-device vfio-pci,host=00:1b.0,bus=pcie.0 \
 
 -device qxl-vga,id=video0,ram_size=67108864,vram_size=67108864,vgamem_mb=16 \
 -spice port=5930,disable-ticketing \
