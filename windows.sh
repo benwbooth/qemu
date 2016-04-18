@@ -21,28 +21,25 @@ exec qemu-system-x86_64 \
 -drive file=/dev/sdf,if=none,media=disk,id=drive-sata0-1-0,format=raw \
 -device ide-hd,bus=sata0.1,drive=drive-sata0-1-0,id=sata0-1-0 \
 \
--drive file=/dev/sdd,if=none,media=disk,id=drive-sata0-2-0,format=raw \
--device ide-hd,bus=sata0.2,drive=drive-sata0-2-0,id=sata0-2-0 \
-\
 -usb \
 -device usb-mouse \
 -device usb-kbd \
 -serial stdio \
 -vga none \
 \
--usbdevice host:0a5c:21e8 \
--device vfio-pci,host=07:00.0,bus=pcie.0,addr=04.0 \
--device vfio-pci,host=02:00.0,bus=pcie.0,addr=05.0 \
+-device vfio-pci,host=00:03.0,bus=pcie.0 \
+-device vfio-pci,host=00:1b.0,bus=pcie.0 \
+-device vfio-pci,host=07:00.0,bus=pcie.0 \
+-device vfio-pci,host=02:00.0,bus=pcie.0 \
 \
 -device vfio-pci,host=01:00.0,id=hostdev0,bus=pcie.0,multifunction=on \
 -device vfio-pci,host=01:00.1,bus=pcie.0 \
--device vfio-pci,host=00:03.0,bus=pcie.0 \
--device vfio-pci,host=00:1b.0,bus=pcie.0 \
-
--device qxl-vga,id=video0,ram_size=67108864,vram_size=67108864,vgamem_mb=16 \
--spice port=5930,disable-ticketing \
+\
+-drive file=/dev/sdd,if=none,media=disk,id=drive-sata0-2-0,format=raw \
+-device ide-hd,bus=sata0.2,drive=drive-sata0-2-0,id=sata0-2-0 \
 
 -drive file=Win10_1511_1_English_x64.iso,id=isocd,format=raw,if=none -device scsi-cd,drive=isocd,bootindex=1 \
-
 -net nic \
 -net bridge,br=br0 \
+-device qxl-vga,id=video0,ram_size=67108864,vram_size=67108864,vgamem_mb=16 \
+-spice port=5930,disable-ticketing \

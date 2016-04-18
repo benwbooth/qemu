@@ -1,8 +1,8 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>windows</name>
-  <uuid>9d47be38-b0de-4820-986a-ab8af93db245</uuid>
-  <memory unit='GiB'>16</memory>
-  <currentMemory unit='GiB'>16</currentMemory>
+  <uuid>5c3ea1e8-1b7d-4cbd-bd22-14e2e03e290b</uuid>
+  <memory unit='GiB'>20</memory>
+  <currentMemory unit='GiB'>20</currentMemory>
   <vcpu>8</vcpu>
   <os>
     <type arch='x86_64'>hvm</type>
@@ -33,11 +33,19 @@
   </pm>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
-    <!--disk type='file' device='disk'>
+    <!--disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
       <source file='/home/ben/src/qemu/virtio-win-0.1.102.iso'/>
-      <target dev='hdb' bus='sata'/>
-      <address type='drive' controller='0' bus='0' target='0' unit='0'/>
+      <target dev='hdb' bus='ide'/>
+      <readonly/>
+      <boot order='3'/>
+    </disk>
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/home/ben/src/qemu/Win10_1511_1_English_x64.iso'/>
+      <target dev='hdd' bus='ide'/>
+      <readonly/>
+      <boot order='1'/>
     </disk-->
     <!--interface type='network'>
       <mac address='52:54:00:76:8a:69'/>
@@ -50,6 +58,7 @@
       <source dev='/dev/sdf'/>
       <target dev='hda' bus='sata'/>
       <address type='drive' controller='0' bus='0' target='0' unit='1'/>
+      <boot order='2'/>
     </disk>
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none' io='native'/>
@@ -68,42 +77,52 @@
       <source>
         <address domain='0x0000' bus='0x01' slot='0x00' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x03' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x03' function='0x0'/-->
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
         <address domain='0x0000' bus='0x01' slot='0x00' function='0x1'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x04' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x04' function='0x0'/-->
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
         <address domain='0x0000' bus='0x07' slot='0x00' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x08' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x08' function='0x0'/-->
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
         <address domain='0x0000' bus='0x02' slot='0x00' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x09' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x09' function='0x0'/-->
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
         <address domain='0x0000' bus='0x00' slot='0x03' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x05' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/-->
     </hostdev>
     <hostdev mode='subsystem' type='pci' managed='yes'>
       <driver name='vfio'/>
       <source>
         <address domain='0x0000' bus='0x00' slot='0x1b' function='0x0'/>
       </source>
-      <address type='pci' domain='0x0000' bus='0x02' slot='0x06' function='0x0'/>
+      <!--address type='pci' domain='0x0000' bus='0x00' slot='0x06' function='0x0'/-->
     </hostdev>
+    <!--graphics type='spice' port='5930' />
+    <video>
+      <model type='qxl' />
+    </video>
+    <input type='mouse' bus='usb'/>
+    <input type='keyboard' bus='usb'/-->
   </devices>
+  <qemu:commandline>
+    <qemu:arg value='-smbios'/>
+    <qemu:arg value='type=2'/>
+  </qemu:commandline>
 </domain>
