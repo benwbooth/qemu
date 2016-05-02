@@ -3,7 +3,7 @@
   <uuid>5c3ea1e8-1b7d-4cbd-bd22-14e2e03e290b</uuid>
   <memory unit='GiB'>18</memory>
   <currentMemory unit='GiB'>18</currentMemory>
-  <vcpu>8</vcpu>
+  <vcpu placement='static' cpuset="1-4" >8</vcpu>
   <os>
     <type arch='x86_64'>hvm</type>
     <loader readonly='no'>/home/ben/src/qemu/OVMF.windows.fd</loader>
@@ -33,19 +33,25 @@
   </pm>
   <devices>
     <emulator>/usr/bin/qemu-system-x86_64</emulator>
+   <!--disk type='file' device='disk'>
+     <driver name='qemu' type='qcow2' cache='none'/>
+     <source file='/home/ben/src/qemu/windows.qcow2'/>
+     <target dev='hda' bus='sata'/>
+     <address type='drive' controller='0' bus='0' unit='0'/>
+     <boot order='1'/>
+   </disk-->
     <!--disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/home/ben/src/qemu/virtio-win-0.1.102.iso'/>
-      <target dev='hdb' bus='ide'/>
+      <source file='/home/ben/src/qemu/Win10_1511_1_English_x64.iso'/>
+      <target dev='hde' bus='sata'/>
       <readonly/>
-      <boot order='3'/>
+      <boot order='1'/>
     </disk>
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/home/ben/src/qemu/Win10_1511_1_English_x64.iso'/>
+      <source file='/home/ben/src/qemu/virtio-win-0.1.102.iso'/>
       <target dev='hdd' bus='ide'/>
       <readonly/>
-      <boot order='1'/>
     </disk-->
     <!--interface type='network'>
       <mac address='52:54:00:76:8a:69'/>
@@ -55,16 +61,16 @@
     </interface-->
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' cache='none' io='native'/>
-      <source dev='/dev/sdf'/>
-      <target dev='hda' bus='sata'/>
-      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
-      <boot order='2'/>
-    </disk>
-    <disk type='block' device='disk'>
-      <driver name='qemu' type='raw' cache='none' io='native'/>
       <source dev='/dev/sdd'/>
       <target dev='hdc' bus='sata'/>
       <address type='drive' controller='0' bus='0' target='0' unit='2'/>
+      <boot order='1'/>
+    </disk>
+    <disk type='block' device='disk'>
+      <driver name='qemu' type='raw' cache='none' io='native'/>
+      <source dev='/dev/sdf'/>
+      <target dev='hdb' bus='sata'/>
+      <address type='drive' controller='0' bus='0' target='0' unit='1'/>
     </disk>
     <serial type='pty'>
       <target port='0'/>
