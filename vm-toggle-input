@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+devices=(keyboard mouse bluetooth)
+vms=(macosx windows)
+for device in "${devices[@]}"; do
+  for i in "${!vms[@]}"; do
+    vm=${vms[$i]}
+    if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" &>/dev/null; then
+      echo "Detached device $device from VM $vm"
+      next_vm=${next_vm:-${vms[((i+1))]}}
+      break
+    fi
+  done
+done
+[[ -z "${next_vm+x}" ]] && next_vm=${vms[0]}
+if [[ -n $next_vm ]]; then
+  for device in "${devices[@]}"; do
+    out=$(virsh attach-device "$next_vm" "$(dirname "$0")/devices/$device.xml" 2>&1)
+    if (($? == 0)); then
+      echo "Attached device $device to VM $next_vm"
+    else
+      echo "$out" 1>&2
+    fi
+  done
+fi
