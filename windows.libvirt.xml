@@ -1,9 +1,9 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>windows</name>
   <uuid>5c3ea1e8-1b7d-4cbd-bd22-14e2e03e290b</uuid>
-  <memory unit='GiB'>18</memory>
-  <currentMemory unit='GiB'>18</currentMemory>
-  <vcpu placement='static' cpuset="1-4" >8</vcpu>
+  <memory unit='GiB'>16</memory>
+  <currentMemory unit='GiB'>16</currentMemory>
+  <vcpu placement='static' cpuset="1-4" >4</vcpu>
   <os>
     <type arch='x86_64'>hvm</type>
     <loader readonly='no'>/home/ben/src/qemu/OVMF.windows.fd</loader>
