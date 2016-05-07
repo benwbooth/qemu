@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-devices=(keyboard mouse bluetooth)
+devices=(keyboard-hub keyboard mouse bluetooth)
 vms=(macosx windows)
-for device in "${devices[@]}"; do
-  for i in "${!vms[@]}"; do
-    vm=${vms[$i]}
+for (( i=${#devices[@]}-1; i>=0; i-- )); do
+  device=${devices[i]}
+  for j in "${!vms[@]}"; do
+    vm=${vms[j]}
     if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" &>/dev/null; then
       echo "Detached device $device from VM $vm"
-      next_vm=${next_vm:-${vms[((i+1))]}}
+      next_vm=${vms[((j+1))]}
       break
     fi
   done
