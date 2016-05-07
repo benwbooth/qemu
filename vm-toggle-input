@@ -5,7 +5,7 @@ for (( i=${#devices[@]}-1; i>=0; i-- )); do
   device=${devices[i]}
   for j in "${!vms[@]}"; do
     vm=${vms[j]}
-    if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" &>/dev/null; then
+    if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" --persistent &>/dev/null; then
       echo "Detached device $device from VM $vm"
       next_vm=${vms[((j+1))]}
       break
@@ -15,7 +15,7 @@ done
 [[ -z "${next_vm+x}" ]] && next_vm=${vms[0]}
 if [[ -n $next_vm ]]; then
   for device in "${devices[@]}"; do
-    out=$(virsh attach-device "$next_vm" "$(dirname "$0")/devices/$device.xml" 2>&1)
+    out=$(virsh attach-device "$next_vm" "$(dirname "$0")/devices/$device.xml" --persistent 2>&1)
     if (($? == 0)); then
       echo "Attached device $device to VM $next_vm"
     else
