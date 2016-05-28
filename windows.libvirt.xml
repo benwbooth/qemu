@@ -3,7 +3,22 @@
   <uuid>5c3ea1e8-1b7d-4cbd-bd22-14e2e03e290b</uuid>
   <memory unit='GiB'>16</memory>
   <currentMemory unit='GiB'>16</currentMemory>
-  <vcpu placement='static' cpuset="1-4" >4</vcpu>
+  <vcpu placement='static'>4</vcpu>
+  <cputune>
+    <vcpupin vcpi='0' cpuset='4' />
+    <vcpupin vcpi='1' cpuset='5' />
+    <vcpupin vcpi='2' cpuset='6' />
+    <vcpupin vcpi='3' cpuset='7' />
+  </cputune>
+  <cpu mode='custom' match='exact'>
+    <topology sockets='1' cores='4' threads='1'/>
+  </cpu>
+  <!--cpu mode='host-passthrough'>
+    <topology sockets='1' cores='8' threads='1'/>
+  </cpu-->
+  <memoryBacking>
+    <hugepages />
+  </memoryBacking>
   <os>
     <type arch='x86_64'>hvm</type>
     <loader readonly='no'>/home/ben/src/qemu/OVMF.windows.fd</loader>
@@ -16,9 +31,6 @@
       <hidden state='on'/>
     </kvm>
   </features>
-  <cpu mode='host-passthrough'>
-    <topology sockets='1' cores='8' threads='1'/>
-  </cpu>
   <clock offset='localtime'>
     <timer name='rtc' tickpolicy='catchup'/>
     <timer name='pit' tickpolicy='delay'/>

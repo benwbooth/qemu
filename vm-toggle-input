@@ -23,3 +23,9 @@ if [[ -n $next_vm ]]; then
     fi
   done
 fi
+if [[ $vm == windows ]]; then
+  bash -x 'cpupower -c 4-7 frequency-set -g performance'
+fi
+if [[ $next_vm == windows ]]; then
+  bash -x 'cpupower -c 4-7 frequency-set -g powersave'
+fi
