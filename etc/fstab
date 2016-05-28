@@ -1,0 +1,27 @@
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+#
+LABEL=antergos / btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=root 0 0
+LABEL=antergos /home btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=home 0 0
+LABEL=antergos /.snapshots btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=snapshots 0 0
+LABEL=antergos /var/cache/pacman/pkg btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=var/cache/pacman/pkg 0 0
+LABEL=antergos /var/abs btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=var/abs 0 0
+LABEL=antergos /var/tmp btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=var/tmp 0 0
+LABEL=antergos /tmp btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=tmp 0 0
+LABEL=antergos /srv btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=srv 0 0
+LABEL=antergos /var/log btrfs defaults,rw,noatime,compress=lzo,ssd,discard,space_cache,autodefrag,inode_cache,subvol=var/log 0 0
+
+LABEL=boot /boot/grub auto nosuid,nodev,nofail 0 0
+
+LABEL=swap swap swap defaults 0 0
+LABEL=Downloads /mnt/Downloads auto nosuid,nodev,nofail,x-gvfs-show 0 0
+LABEL=data /mnt/data auto nosuid,nodev,nofail,x-gvfs-show 0 0
+LABEL=Pictures /mnt/Pictures auto nosuid,nodev,nofail,x-gvfs-show 0 0
+LABEL=macpro /mnt/macpro auto nosuid,nodev,nofail,x-gvfs-show 0 0
+
+hugetlbfs /dev/hugepages hugetlbfs mode=1770,gid=78 0 0
