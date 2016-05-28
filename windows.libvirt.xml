@@ -5,10 +5,10 @@
   <currentMemory unit='GiB'>16</currentMemory>
   <vcpu placement='static'>4</vcpu>
   <cputune>
-    <vcpupin vcpi='0' cpuset='4' />
-    <vcpupin vcpi='1' cpuset='5' />
-    <vcpupin vcpi='2' cpuset='6' />
-    <vcpupin vcpi='3' cpuset='7' />
+    <vcpupin vcpu='0' cpuset='4' />
+    <vcpupin vcpu='1' cpuset='5' />
+    <vcpupin vcpu='2' cpuset='6' />
+    <vcpupin vcpu='3' cpuset='7' />
   </cputune>
   <cpu mode='custom' match='exact'>
     <topology sockets='1' cores='4' threads='1'/>
