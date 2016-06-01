@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [[ $1 == windows && $2 == start ]]; then
+  cpupower -c 4-7 frequency-set -g performance
+fi
+if [[ $1 == windows && $2 == stopped ]]; then
+  cpupower -c 4-7 frequency-set -g powersave
+fi
