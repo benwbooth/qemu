@@ -4,34 +4,33 @@ devices=(keyboard-hub keyboard mouse bluetooth)
 vms=(macosx windows)
 lockfile=$(dirname "$0")/.$(basename "$0").lock
 
-(
-  # Wait for lock on fd 200 for 10 seconds
-  if ! flock -x -w 10 200; then
-    echo "Could not get exclusive lock on $lockfile" >&2
-    exit 1
-  fi
+# Wait for lock on fd 200 for 10 seconds
+exec 200>"$lockfile"
+if ! flock -x -w 10 200; then
+  echo "Could not get exclusive lock on $lockfile" >&2
+  exit 1
+fi
 
-  for (( i=${#devices[@]}-1; i>=0; i-- )); do
-    device=${devices[i]}
-    for j in "${!vms[@]}"; do
-      vm=${vms[j]}
-      if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" --persistent &>/dev/null; then
-        echo "Detached device $device from VM $vm"
-        next_vm=${vms[((j+1))]}
-        break
-      fi
-    done
+for (( i=${#devices[@]}-1; i>=0; i-- )); do
+  device=${devices[i]}
+  for j in "${!vms[@]}"; do
+    vm=${vms[j]}
+    if virsh detach-device "$vm" "$(dirname "$0")/devices/$device.xml" --persistent &>/dev/null; then
+      echo "Detached device $device from VM $vm"
+      next_vm=${vms[((j+1))]}
+      break
+    fi
   done
-  [[ -z "${next_vm+x}" ]] && next_vm=${vms[0]}
-  if [[ -n $next_vm ]]; then
-    for device in "${devices[@]}"; do
-      out=$(virsh attach-device "$next_vm" "$(dirname "$0")/devices/$device.xml" --persistent 2>&1)
-      if (($? == 0)); then
-        echo "Attached device $device to VM $next_vm"
-      else
-        echo "$out" 1>&2
-      fi
-    done
-  fi
-) 200>"$lockfile"
+done
+[[ -z "${next_vm+x}" ]] && next_vm=${vms[0]}
+if [[ -n $next_vm ]]; then
+  for device in "${devices[@]}"; do
+    out=$(virsh attach-device "$next_vm" "$(dirname "$0")/devices/$device.xml" --persistent 2>&1)
+    if (($? == 0)); then
+      echo "Attached device $device to VM $next_vm"
+    else
+      echo "$out" 1>&2
+    fi
+  done
+fi
 
