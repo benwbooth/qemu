@@ -5,7 +5,7 @@
   <currentMemory unit='GiB'>8</currentMemory>
   <vcpu>8</vcpu>
   <os>
-    <type arch='x86_64' machine='pc-q35-2.3'>hvm</type>
+    <type arch='x86_64' machine='pc-q35-2.6'>hvm</type>
     <loader readonly='no'>/home/ben/src/qemu/OVMF.macosx.fd</loader>
   </os>
   <features>
