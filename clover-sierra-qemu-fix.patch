@@ -1,0 +1,13 @@
+Index: rEFIt_UEFI/refit/main.c
+===================================================================
+--- rEFIt_UEFI/refit/main.c	(revision 3763)
++++ rEFIt_UEFI/refit/main.c	(working copy)
+@@ -1911,7 +1911,7 @@
+     Msrflex = AsmReadMsr64(MSR_FLEX_RATIO); //0 == not Rw :(
+     DBG("MSR_FLEX_RATIO = %lx\n", Msrflex);
+  */
+-    gCPUStructure.FSBFrequency = DivU64x32(MultU64x32(gCPUStructure.CPUFrequency, 10),
++    gCPUStructure.FSBFrequency = DivU64x32(MultU64x32(gCPUStructure.CPUFrequency, 40),
+                                            (gCPUStructure.MaxRatio == 0) ? 1 : gCPUStructure.MaxRatio);
+     gCPUStructure.ExternalClock = (UINT32)DivU64x32(gCPUStructure.FSBFrequency, kilo);
+   }
