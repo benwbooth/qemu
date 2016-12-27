@@ -3,7 +3,12 @@
   <uuid>59569eb2-e3dd-4744-9b0f-268eae936c6c</uuid>
   <memory unit='GiB'>8</memory>
   <currentMemory unit='GiB'>8</currentMemory>
-  <vcpu>8</vcpu>
+  <vcpu>4</vcpu>
+  <cputune>
+    <vcpupin vcpu='0' cpuset='2' />
+    <vcpupin vcpu='1' cpuset='6' />
+    <emulatorpin cpuset='3,7'/>
+  </cputune>
   <os>
     <type arch='x86_64' machine='pc-q35-2.6'>hvm</type>
     <loader readonly='no'>/home/ben/src/qemu/OVMF.macosx.fd</loader>
