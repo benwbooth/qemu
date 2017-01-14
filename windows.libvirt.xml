@@ -1,8 +1,8 @@
 <domain type='kvm' xmlns:qemu='http://libvirt.org/schemas/domain/qemu/1.0'>
   <name>windows</name>
   <uuid>5c3ea1e8-1b7d-4cbd-bd22-14e2e03e290b</uuid>
-  <memory unit='GiB'>16</memory>
-  <currentMemory unit='GiB'>16</currentMemory>
+  <memory unit='GiB'>15</memory>
+  <currentMemory unit='GiB'>15</currentMemory>
   <vcpu placement='static'>4</vcpu>
   <cputune>
     <vcpupin vcpu='0' cpuset='0' />
@@ -55,7 +55,7 @@
    </disk-->
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/mnt/data/qemu/Win10_1511_1_English_x64.iso'/>
+      <source file='/mnt/data/qemu/Win10_1607_English_x64.iso'/>
       <target dev='hde' bus='sata'/>
       <readonly/>
       <boot order='1'/>
