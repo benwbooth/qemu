@@ -31,7 +31,7 @@ exec qemu-system-x86_64 \
 -device ide-hd,bus=sata0.1,drive=drive-sata0-1-0,id=sata0-1-0 \
 
 -drive file=windows.qcow2,if=none,media=disk,id=drive-sata0-0-0,format=qcow2 \
--device ide-hd,bus=sata0.0,drive=drive-sata0-0-0,id=sata0-0-0,bootindex=1 \
+-device ide-hd,bus=sata0.0,drive=drive-sata0-0-0,id=sata0-0-0,bootindex=2 \
 
 -net nic \
 -net bridge,br=br0 \
@@ -45,5 +45,6 @@ exec qemu-system-x86_64 \
 -device vfio-pci,host=01:00.1,bus=pcie.0 \
 \
 -device virtio-scsi-pci,id=scsi \
--drive file=Win10_1511_1_English_x64.iso,id=isocd,format=raw,if=none -device scsi-cd,drive=isocd,bootindex=1 \
--drive file=virtio-win-0.1.102.iso,id=virtiocd,if=none,format=raw -device ide-cd,bus=ide.1,drive=virtiocd \
+-drive file=/mnt/data/qemu/Win10_1607_English_x64.iso,id=isocd,format=raw,if=none -device scsi-cd,drive=isocd,bootindex=1 \
+
+#-drive file=virtio-win-0.1.102.iso,id=virtiocd,if=none,format=raw -device ide-cd,bus=ide.1,drive=virtiocd \
